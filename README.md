@@ -1,99 +1,224 @@
-Project zk-KYC: A Reusable, Privacy-First Identity Framework
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/05dc87ec-8e99-4c74-afd7-be1db14b835e" /># MyPersona: zk-KYC Network 🛡️🇮🇳
 
-Team Name: (Your Team Name Here)
-Problem Statement: Tokenised KYC
+[![RBI Harbinger 2025](https://img.shields.io/badge/Submission-RBI%20Harbinger%202025-blue?style=for-the-badge&logo=bank)](https://rbi.org.in)
+[![Polygon Amoy](https://img.shields.io/badge/Deployed%20on-Polygon%20Amoy-purple?style=for-the-badge&logo=polygon)](https://amoy.polygonscan.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
-1. Executive Summary
+> **"Reusable, gas-less privacy tokens using Zero Knowledge Proofs with embedded, pausable regulatory oversight for India."**
 
-Our project, zk-KYC, directly addresses the "Tokenised KYC" challenge by building a decentralized, user-centric identity framework. We use a Self-Sovereign Identity (SSI) model where users store their verified credentials (e.g., from DigiLocker) as private, reusable "tokens" in a secure mobile wallet.
+---
 
-Our key innovation is the use of Zero-Knowledge Proofs (ZKPs). When a financial institution (like a mutual fund) needs to verify a user, the user doesn't share their sensitive data (like their name or date of birth). Instead, their wallet generates a cryptographic proof (e.g., "I am over 18" or "My KYC status is 'Verified'") which is instantly verifiable on the blockchain. This model eliminates data duplication, gives users full control, and makes onboarding instant and secure.
+## 📖 Executive Summary
 
-2. The Solution: How It Works
+**MyPersona (zk-KYC)** is a decentralized, privacy-first identity framework designed to solve the **"Tokenised KYC"** challenge.
 
-We are building a complete, four-part ecosystem based on the principles of Self-Sovereign Identity (SSI). The "token" is a W3C Verifiable Credential (VC), a digitally signed, tamper-proof JSON file containing the user's KYC data, which they store in their private wallet.
+We are moving India from a fragmented, insecure identity model to a unified, private one.
 
-Issuance: A trusted authority (e.g., a bank or CKYCR) performs a one-time KYC. It then "mints" a digital Verifiable Credential and gives it directly to the user, who stores it in their Holder Wallet.
+![The Problem vs. The Solution](image_2.png)
 
-Storage: The user holds their own KYC "tokens" in their secure mobile wallet. This data never touches the blockchain.
+In the current financial ecosystem, users must repeatedly share sensitive documents (Aadhaar, PAN) with every new service, creating redundant data silos and "Honey Pots" for hackers. MyPersona replaces this with a **Self-Sovereign Identity (SSI)** model.
 
-Presentation (The ZKP Magic): When a new service (e.g., an insurance company) needs KYC, it requests a specific proof. The user's wallet locally generates a ZKP to prove the claims (e.g., "I am over 18") without revealing the underlying data.
+We enable users to convert their KYC into **reusable, tamper-proof digital tokens** stored on their mobile devices. Using **Zero-Knowledge Proofs (ZKPs)**, users can prove eligibility without revealing their underlying data.
 
-Verification: The insurance company receives this ZKP and verifies it by checking our on-chain smart contracts. This check is instant, free for the user, and confirms two things:
+---
 
-Was this credential issued by a trusted source? (Checks IssuerRegistry.sol)
+## 🚀 Key Features
 
-Has this credential been revoked? (Checks RevocationRegistry.sol)
+| Feature | Description |
+| :--- | :--- |
+| **🔐 Zero-Knowledge Privacy** | Users prove facts (Age, Income) without sharing raw documents. Data never leaves the user's phone. |
+| **💸 Truly Gas-less UX** | Built on a **Meta-Transaction Relayer**. Users perform verifications without owning crypto or paying gas fees. |
+| **🚦 Regulatory Kill-Switch** | Smart contracts feature a **`Pausable`** module, allowing the RBI/Admin to freeze the system instantly during security threats. |
+| **🔄 Interoperable** | Built on **W3C Verifiable Credentials (VCs)**. Compatible with existing standards like DigiLocker and CKYCR. |
+| **📱 Offline-Ready** | Proof generation happens locally on the device using lightweight **Circom** circuits (Groth16). |
 
-This process is instant, requires no forms, and protects user privacy at all costs.
+---
 
-3. Architecture & Tech Stack
+## 🧠 How it Works: The ZKP Magic
 
-Our solution is composed of four distinct, interoperable components.
+The core of our solution is the Zero-Knowledge Proof. It allows a user to prove a claim to a service provider (Verifier) without revealing the data behind that claim.
 
-On-Chain Trust Layer (The Blockchain)
+![ZKP Mechanism Explanation](https://lh3.googleusercontent.com/gg-dl/ABS2GSnT1k0cQdOKAVwqzsGTqL--nsMIbTIwcYf5PSdUkuW8Ifpffc4D4UseNbBQvggot3O7Gz1Guut44SDaX3KsOfO10RqBrSzkeiKjM6p6xL81Gl8vNp4jdkDqzHJrSrjRJ_3hR8e5kUlE2IgDNEMkiuDQl0yLMJtJhhzTi4nCMvyrPkxv2Q=s1024-rj
+)
 
-Technology: Solidity, Polygon Amoy Testnet
+As shown above, the user's phone generates a cryptographic proof locally. The Verifier (e.g., a Mutual Fund App) receives only a "Yes/No" answer, ensuring absolute privacy.
 
-Contracts: We have already developed and deployed:
+---
 
-IssuerRegistry.sol: An on-chain list of trusted issuer addresses (e.g., banks, CKYCR).
+## 🏗️ Architecture & Workflow
 
-RevocationRegistry.sol: An on-chain list of revoked credentials, allowing for real-time invalidation (e.g., if a user's phone is stolen).
+The solution operates on a trust triangle between the **Issuer** (Bank), **Holder** (User), and **Verifier** (Service Provider), with the blockchain acting as the immutable trust layer.
 
-Issuer Portal (Admin App)
+![System Architecture Diagram](image_4.png)
 
-Technology: Node.js (Express), React
+```mermaid
+sequenceDiagram
+    participant I as 🏛️ Issuer (Bank)
+    participant U as 📱 Holder (User App)
+    participant V as 🏢 Verifier (Mutual Fund)
+    participant B as ⛓️ Polygon Blockchain
 
-Purpose: A secure web portal for trusted authorities (e.g., a bank) to create, sign, and issue Verifiable Credentials to users.
+    Note over I, U: Phase 1: Issuance (One-Time)
+    I->>U: Verifies Docs & Issues Signed VC (Token)
+    U->>U: Stores VC in Encrypted Vault
 
-Holder Wallet (User App)
+    Note over U, V: Phase 2: Presentation
+    V->>U: Requests Proof: "Are you > 18?"
+    U->>U: Generates ZK-Proof (No PII revealed)
+    U->>V: Sends ZK-Proof
 
-Technology: React Native (for cross-platform mobile)
+    Note over V, B: Phase 3: Verification
+    V->>B: Reads Registry (Is Issuer valid? Is VC revoked?)
+    B-->>V: Returns: ✅ Valid
+    V->>U: Instant Onboarding 🚀
+```
 
-Purpose: The user's secure wallet. It stores VCs, manages private keys, parses proof requests (via QR code), and locally generates the Zero-Knowledge Proofs.
+### Workflow Breakdown
 
-Verifier Service (Onboarding App)
+**Phase 1: Issuance (One-Time Setup)**
+- A trusted authority (Bank/CKYCR) verifies the user's documents
+- Issues a digitally signed Verifiable Credential (VC)
+- User stores this VC in their encrypted mobile wallet
 
-Technology: Node.js (Express), React, Polygon ID SDK
+**Phase 2: Presentation (When Needed)**
+- Service provider requests a proof (e.g., "Are you over 18?")
+- User's wallet generates a Zero-Knowledge Proof locally
+- Only the proof is sent—no personal data leaves the device
 
-Purpose: A web app for a financial service (e.g., a mutual fund) to request and verify proofs. It will generate a QR code for the user to scan and will verify the submitted ZKP against our smart contracts.
+**Phase 3: Verification (Instant)**
+- Verifier checks the blockchain to confirm:
+  - Is the issuer valid? (IssuerRegistry)
+  - Is the credential revoked? (RevocationRegistry)
+- Access granted within seconds
 
-4. Fulfilling the Problem Statement (Features a-j)
+---
 
-Our architecture is
-specifically designed to meet every requirement of the problem statement:
+## 📱 User Experience (Gas-less & Simple)
 
-(a, b) Token-based & Reusable: Our "token" is a W3C Verifiable Credential (VC), digitally signed by an issuer and stored by the user. It is machine-readable and designed for reuse.
+A key barrier to blockchain adoption is complexity. We have abstracted away all crypto-related friction. The user experience is designed to be as simple as a standard UPI app.
 
-(c, f) User Control & Privacy: The user's data never leaves their device. They only share ZKPs, giving them explicit, auditable consent for every interaction.
+The user simply presses a button to generate a proof. There are no gas fees and no complex wallet interactions.
 
-(d) Selective Disclosure: This is the core of our ZKP-based solution. The user can prove they are "Over 18" without revealing their date of birth, or "KYC-Verified" without revealing their address.
+---
 
-(e, h) Interoperability & Integration: Our system is built on open standards (W3C DIDs and VCs). Any existing infrastructure (Aadhaar, DigiLocker, CKYCR) can be integrated as a trusted "Issuer" by simply adding their address to our IssuerRegistry contract.
+## 📂 Repository Structure
 
-(g, j) Revocation & Updation: Our RevocationRegistry contract provides a real-time, on-chain mechanism for issuers to revoke credentials. A "KYC update" is handled by the issuer revoking the old VC and issuing a new, updated one to the user.
+This monorepo contains the end-to-end implementation of the MyPersona infrastructure:
 
-(i) Secure Delegation: Our architecture supports this via the "Unique Features" below, where a guardian can be an Owner of the contracts.
+### 1. `/kyc-contracts` ⛓️
+The on-chain trust layer deployed on Polygon Amoy.
 
-5. Our Unique Features (Standing Out)
+- **IssuerRegistry.sol**: Whitelist of authorized banks/CKYCR nodes.
+- **RevocationRegistry.sol**: Handles real-time credential revocation (e.g., lost devices).
 
-To push the boundaries of the problem statement, we are including three simple but powerful features:
+**Tech Stack**: Solidity, Hardhat, OpenZeppelin.
 
-Truly Gas-less for Users: A major barrier to blockchain adoption is gas fees. In our system, the user never pays gas. Verification is a free read call. The only write transactions (adding issuers, revoking credentials) are paid by the institutions, which is a low-cost, infrequent event. This is critical for financial inclusion.
+### 2. `/issuer-portal` 🏛️
+The admin dashboard for banks/regulators.
 
-Administrative Emergency-Freeze: Both of our smart contracts include an Pausable module. This gives the system administrator (e.g., a governing body) a "panic button." In the event of a security vulnerability or attack, the admin can instantly call pause() to freeze all state changes (like adding new issuers or revoking credentials), while still allowing verification read calls to function. This is a mature security feature that ensures system integrity.
+- Allows institutions to perform KYC and mint Verifiable Credentials to users.
+- Manages the "Emergency Freeze" and Revocation controls.
 
-User-Centric Private Audit Trail: To fulfill the "auditable" requirement (feature c) in a privacy-first way, the user's mobile wallet will maintain a local, encrypted log of every proof it has ever shared. The user can see "You proved 'Over 18' to SecureInsure on Nov 18, 2025." This log is for the user's eyes only and cannot be tampered with.
+**Tech Stack**: Node.js, React, Ethers.js.
 
-6. Hackathon Deliverables
+### 3. `/user-app` 📱
+The consumer-facing mobile wallet.
 
-By the end of the hackathon, we will deliver a fully functional, end-to-end demo consisting of:
+- Stores credentials securely using AES-256 encryption.
+- Contains the local ZKP Generator (Circom/SnarkJS) to create proofs offline.
 
-The deployed IssuerRegistry and RevocationRegistry smart contracts on the Polygon Amoy testnet.
+**Tech Stack**: React Native, SnarkJS.
 
-A working web app for the Issuer to create a KYC credential.
+### 4. `/verifier-service` 🏢
+The integration service for Fintechs (e.g., Insurance/Lending apps).
 
-A working web app for the Verifier to request a proof.
+- Generates QR codes for proof requests.
+- Verifies incoming ZK-Proofs against the blockchain.
 
-A functional prototype of the Holder's mobile wallet to store the credential and generate the ZK-Proof.
+**Tech Stack**: Node.js, Express, Polygon ID SDK.
+
+---
+
+## ⚡ Getting Started
+
+### Prerequisites
+- Node.js v18+
+- Yarn / NPM
+- An Android/iOS Emulator (for the User App)
+
+### Installation
+
+**1. Clone the Repository**
+
+```bash
+git clone https://github.com/psr-codes/MyPersona.git
+cd MyPersona
+```
+
+**2. Setup Contracts**
+
+```bash
+cd kyc-contracts
+npm install
+npx hardhat test  # Run security tests
+```
+
+**3. Run the Issuer Portal**
+
+```bash
+cd ../issuer-portal
+npm install
+npm start
+```
+
+**4. Run the Mobile Wallet**
+
+```bash
+cd ../user-app
+npm install
+npx react-native run-android
+```
+
+---
+
+## 🛡️ Security & Compliance
+
+- **PMLA Compliance**: We adhere to the Data Minimization principles of the DPDP Act 2023.
+- **Audit Trail**: The RevocationRegistry maintains an immutable log of credential validity without storing PII on-chain.
+- **Encryption**: All local data is encrypted at rest; all transport is secured via DIDComm/TLS.
+
+---
+
+## 👥 The Team
+
+We are a team of final-year undergraduates from **NSUT (Netaji Subhas University of Technology)** with a focus on Applied Cryptography and Fintech.
+
+- **Pulkit Pathak** - Lead Blockchain Architect
+- **Prakash Singh Rawat** - Zero-Knowledge Cryptography Lead
+- **Mohd. Dilshad** - Full Stack & Product Engineer
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with ❤️ for **RBI HaRBInger 2025**
+
+Special thanks to the Reserve Bank of India for creating this innovation challenge to advance India's digital identity infrastructure.
+
+---
+
+## 📞 Contact
+
+For queries, collaborations, or feedback:
+- **GitHub**: [psr-codes/MyPersona](https://github.com/psr-codes/MyPersona)
+- **Email**: [Contact Team]
+
+---
+
+**MyPersona** • Redefining Digital Identity for a Billion Indians 🇮🇳
