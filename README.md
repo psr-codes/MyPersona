@@ -229,22 +229,3 @@ For queries, collaborations, or feedback:
 
 **MyPersona** • Redefining Digital Identity for a Billion Indians 🇮🇳
 
-``` mermaid
-template AgeCheck() {
-    signal input dateOfBirth;  // Private (never revealed)
-    signal input currentDate;  // Public
-    signal input minimumAge;   // Public
-    
-    signal output isValid;     // Public (1 or 0)
-    
-    component ageCalculator = CalculateAge();
-    ageCalculator.dob <== dateOfBirth;
-    ageCalculator.today <== currentDate;
-    
-    component comparator = GreaterEqThan(8);
-    comparator.in[0] <== ageCalculator.age;
-    comparator.in[1] <== minimumAge;
-    
-    isValid <== comparator.out;
-}
-```
