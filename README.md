@@ -14,7 +14,10 @@
 
 We are moving India from a fragmented, insecure identity model to a unified, private one.
 
-![The Problem vs. The Solution](https://lh3.googleusercontent.com/gg-dl/ABS2GSmoJzJWxJiWhrV2GGJsmTlzoJp7etQRFQvDCRpD36EZZWC_yyZeNmj40OVdG-4ogbNyxHcTF5g0sNxKFvn4V38JnaMzwYn5wTZa39_XU_04TBQXEVC64eZxvbPQnuNe5VIpIWoLkD7la6BnUzbD4NY4kBHMNriHAFCZO7-HqpiRx7CA2g=s1024-rj)
+![The Problem vs. The Solution]
+
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/c30861c6-20d7-4f4b-a2e1-d932d43fb751" />
+
 
 In the current financial ecosystem, users must repeatedly share sensitive documents (Aadhaar, PAN) with every new service, creating redundant data silos and "Honey Pots" for hackers. MyPersona replaces this with a **Self-Sovereign Identity (SSI)** model.
 
@@ -38,8 +41,8 @@ We enable users to convert their KYC into **reusable, tamper-proof digital token
 
 The core of our solution is the Zero-Knowledge Proof. It allows a user to prove a claim to a service provider (Verifier) without revealing the data behind that claim.
 
-![ZKP Mechanism Explanation](https://lh3.googleusercontent.com/gg-dl/ABS2GSnT1k0cQdOKAVwqzsGTqL--nsMIbTIwcYf5PSdUkuW8Ifpffc4D4UseNbBQvggot3O7Gz1Guut44SDaX3KsOfO10RqBrSzkeiKjM6p6xL81Gl8vNp4jdkDqzHJrSrjRJ_3hR8e5kUlE2IgDNEMkiuDQl0yLMJtJhhzTi4nCMvyrPkxv2Q=s1024-rj
-)
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/46371010-6ba6-4996-bf00-008f5d742f24" />
+
 
 As shown above, the user's phone generates a cryptographic proof locally. The Verifier (e.g., a Mutual Fund App) receives only a "Yes/No" answer, ensuring absolute privacy.
 
@@ -49,7 +52,8 @@ As shown above, the user's phone generates a cryptographic proof locally. The Ve
 
 The solution operates on a trust triangle between the **Issuer** (Bank), **Holder** (User), and **Verifier** (Service Provider), with the blockchain acting as the immutable trust layer.
 
-![System Architecture Diagram](image_4.png)
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/1061797a-dd07-4859-bc04-5e0771b9fad6" />
+
 
 ```mermaid
 sequenceDiagram
@@ -64,13 +68,15 @@ sequenceDiagram
 
     Note over U, V: Phase 2: Presentation
     V->>U: Requests Proof: "Are you > 18?"
-    U->>U: Generates ZK-Proof (No PII revealed)
-    U->>V: Sends ZK-Proof
+    U->>U: Generates ZK-Proof Locally (Circom + SnarkJS)
+    U->>V: Sends {Proof, Public Signals, Credential Status ID}
 
-    Note over V, B: Phase 3: Verification
-    V->>B: Reads Registry (Is Issuer valid? Is VC revoked?)
-    B-->>V: Returns: ✅ Valid
-    V->>U: Instant Onboarding 🚀
+    Note over V, B: Phase 3: Verification (Dual-Check)
+    V->>V: 1. Cryptographic Check: snarkjs.verify(proof) [OFF-CHAIN]
+    V->>B: 2. State Check: Read IssuerRegistry (Is Issuer trusted?)
+    V->>B: 3. State Check: Read RevocationRegistry (Is VC revoked?)
+    B-->>V: Returns: ✅ Issuer Valid, Not Revoked
+    V->>U: ✅ Instant Onboarding 🚀
 ```
 
 ### Workflow Breakdown
@@ -217,7 +223,7 @@ Special thanks to the Reserve Bank of India for creating this innovation challen
 
 For queries, collaborations, or feedback:
 - **GitHub**: [psr-codes/MyPersona](https://github.com/psr-codes/MyPersona)
-- **Email**: [Contact Team]
+- **Email**: pulkitpathak.knp@gmail.com
 
 ---
 
