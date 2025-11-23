@@ -229,6 +229,7 @@ For queries, collaborations, or feedback:
 
 **MyPersona** • Redefining Digital Identity for a Billion Indians 🇮🇳
 
+``` mermaid
 template AgeCheck() {
     signal input dateOfBirth;  // Private (never revealed)
     signal input currentDate;  // Public
@@ -246,3 +247,4 @@ template AgeCheck() {
     
     isValid <== comparator.out;
 }
+```
