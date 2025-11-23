@@ -1,4 +1,4 @@
-<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/05dc87ec-8e99-4c74-afd7-be1db14b835e" /># MyPersona: zk-KYC Network 🛡️🇮🇳
+# MyPersona: zk-KYC Network 🛡️🇮🇳
 
 [![RBI Harbinger 2025](https://img.shields.io/badge/Submission-RBI%20Harbinger%202025-blue?style=for-the-badge&logo=bank)](https://rbi.org.in)
 [![Polygon Amoy](https://img.shields.io/badge/Deployed%20on-Polygon%20Amoy-purple?style=for-the-badge&logo=polygon)](https://amoy.polygonscan.com/)
@@ -14,7 +14,7 @@
 
 We are moving India from a fragmented, insecure identity model to a unified, private one.
 
-![The Problem vs. The Solution](image_2.png)
+![The Problem vs. The Solution](https://lh3.googleusercontent.com/gg-dl/ABS2GSmoJzJWxJiWhrV2GGJsmTlzoJp7etQRFQvDCRpD36EZZWC_yyZeNmj40OVdG-4ogbNyxHcTF5g0sNxKFvn4V38JnaMzwYn5wTZa39_XU_04TBQXEVC64eZxvbPQnuNe5VIpIWoLkD7la6BnUzbD4NY4kBHMNriHAFCZO7-HqpiRx7CA2g=s1024-rj)
 
 In the current financial ecosystem, users must repeatedly share sensitive documents (Aadhaar, PAN) with every new service, creating redundant data silos and "Honey Pots" for hackers. MyPersona replaces this with a **Self-Sovereign Identity (SSI)** model.
 
