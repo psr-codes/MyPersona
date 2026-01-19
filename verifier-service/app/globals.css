@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Custom Theme Variables - Verifier Service uses purple/violet theme */
+:root {
+  /* Primary Colors - Purple/Violet for verification */
+  --color-primary: #7C3AED;
+  --color-primary-light: #8B5CF6;
+  --color-primary-dark: #6D28D9;
+  --color-primary-50: #F5F3FF;
+  
+  /* Secondary Colors - Teal for trust indicators */
+  --color-secondary: #0D9488;
+  --color-secondary-light: #14B8A6;
+  --color-secondary-dark: #0F766E;
+  
+  /* Layout */
+  --sidebar-width: 280px;
+  --sidebar-collapsed: 80px;
+  --header-height: 72px;
+  
+  /* Background */
+  --background: #F8FAFC;
+  --foreground: #1E293B;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Selection */
+::selection {
+  background: #EDE9FE;
+  color: #6D28D9;
+}
+
+/* Custom Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scan-line {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-scan {
+  animation: scan-line 2s linear infinite;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Button Gradients */
+.btn-primary-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+}
+
+.btn-secondary-gradient {
+  background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
+}
+
+.btn-danger-gradient {
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
+}
+
+.btn-success-gradient {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+/* Card with top gradient border */
+.card-gradient-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7C3AED, #0D9488);
+  border-radius: 0.875rem 0.875rem 0 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card-gradient-top:hover::before {
+  opacity: 1;
+}
+
+/* Network Badge Styling */
+.network-badge {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+/* QR Code Container */
+.qr-container {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%);
+  border: 2px dashed rgba(124, 58, 237, 0.2);
+}
+
+/* Verification Status Styles */
+.status-verified {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-failed {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(225, 29, 72, 0.1) 100%);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.status-pending {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 25%,
+    #F1F5F9 50%,
+    #E2E8F0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

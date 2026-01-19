@@ -1,11 +1,11 @@
 # MyPersona Issuer Portal 🛡️
 
-A professional-grade admin dashboard for managing the zk-KYC network. Built with **Next.js 16** and **Tailwind CSS** for the RBI HaRBInger 2025 hackathon.
+A professional-grade admin dashboard for managing the zk-KYC network. Built for the RBI HaRBInger 2025 hackathon.
 
 ![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Polygon Amoy](https://img.shields.io/badge/Network-Polygon%20Amoy-purple)
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4)
+![React](https://img.shields.io/badge/React-18-blue)
+![Vite](https://img.shields.io/badge/Vite-5-yellow)
 
 ## Features
 
@@ -39,9 +39,10 @@ A professional-grade admin dashboard for managing the zk-KYC network. Built with
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **Styling**: Tailwind CSS 4
+- **Framework**: React 18 + Vite 5
 - **Blockchain**: ethers.js v6
+- **Routing**: react-router-dom v6
+- **Styling**: CSS Modules with custom design system
 - **Icons**: Lucide React
 - **Notifications**: react-hot-toast
 - **Network**: Polygon Amoy Testnet
@@ -73,7 +74,7 @@ The app will open at `http://localhost:3000`
 
 ```bash
 npm run build
-npm run start
+npm run preview
 ```
 
 ## Contract Addresses
@@ -89,27 +90,28 @@ Both contracts are deployed on **Polygon Amoy Testnet** (Chain ID: 80002)
 
 ```
 issuer-portal/
-├── app/
-│   ├── page.js              # Dashboard
-│   ├── layout.js            # Root layout
-│   ├── globals.css          # Tailwind + custom styles
-│   ├── issuers/page.js      # Issuer management
-│   ├── credentials/page.js  # Credential revocation
-│   └── system/page.js       # Emergency controls
-├── components/
-│   ├── Sidebar.js           # Navigation sidebar
-│   └── Header.js            # Page header with wallet
-├── contexts/
-│   └── WalletContext.js     # MetaMask integration
-├── hooks/
-│   └── useContracts.js      # Contract interactions
-├── lib/
-│   └── contracts.js         # ABIs & addresses
 ├── public/
-│   └── logo.svg             # Shield logo
-├── package.json
-├── tailwind.config.js
-└── next.config.mjs
+│   └── logo.svg           # Custom shield logo
+├── src/
+│   ├── components/
+│   │   └── Layout/        # Sidebar, Header, MainLayout
+│   ├── contexts/
+│   │   └── WalletContext.jsx  # MetaMask connection
+│   ├── hooks/
+│   │   └── useContracts.js    # Contract interactions
+│   ├── pages/
+│   │   ├── Dashboard.jsx      # Main dashboard
+│   │   ├── IssuersPage.jsx    # Issuer management
+│   │   ├── CredentialsPage.jsx # Credential revocation
+│   │   └── SystemPage.jsx     # Emergency controls
+│   ├── utils/
+│   │   └── contracts.js       # ABIs & addresses
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css          # Design system
+├── index.html
+├── vite.config.js
+└── package.json
 ```
 
 ## Design System
@@ -125,10 +127,9 @@ issuer-portal/
 ### Features
 
 - Light theme optimized for clarity
-- Tailwind CSS utility classes
+- Glassmorphism effects
 - Smooth animations and transitions
 - Responsive design
-- Glass morphism effects
 
 ## Usage
 
