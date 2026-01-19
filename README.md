@@ -199,8 +199,8 @@ npx react-native run-android
 
 We are a team of final-year undergraduates from **NSUT (Netaji Subhas University of Technology)** with a focus on Applied Cryptography and Fintech.
 
-- **Pulkit Pathak** - Lead Blockchain Architect
-- **Prakash Singh Rawat** - Zero-Knowledge Cryptography Lead
+- **Prakash Singh Rawat** - Lead Blockchain Architect 
+- **Pulkit Pathak** - Zero-Knowledge Cryptography Lead
 - **Mohd. Dilshad** - Full Stack & Product Engineer
 
 ---
@@ -223,6 +223,7 @@ Special thanks to the Reserve Bank of India for creating this innovation challen
 
 For queries, collaborations, or feedback:
 - **GitHub**: [psr-codes/MyPersona](https://github.com/psr-codes/MyPersona)
+- **Email**: prakash.rawat.dev@gmail.com
 - **Email**: pulkitpathak.knp@gmail.com
 
 ---
